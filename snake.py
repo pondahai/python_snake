@@ -14,16 +14,27 @@ def die(screen, score):
 	pygame.display.update()
 	pygame.time.wait(2000)
 	sys.exit(0)
+
+def get_new_applepos():
+    while True:
+        collison = False
+        x, y = random.randint(0, (590/20)-1)*20+10, random.randint(0, (590/20)-1)*20+10
+        for i in range(0, len(xs)):
+            if xs[i] == x and y == ys[i]:
+                collison = True
+                print "collision, select again!"
+        if collison == False:
+            return (x,y)
     
 xs = [290, 290, 290, 290, 290]
 ys = [290, 270, 250, 230, 210]
 dirs = 0
 score = 0
-applepos = (random.randint(0, 590), random.randint(0, 590))
+applepos = get_new_applepos()
 pygame.init()
 s=pygame.display.set_mode((600, 600))
 pygame.display.set_caption('Snake')
-appleimage = pygame.Surface((10, 10))
+appleimage = pygame.Surface((20, 20))
 appleimage.fill((0, 255, 0))
 img = pygame.Surface((20, 20))
 img.fill((255, 0, 0))
@@ -54,9 +65,10 @@ while True:
 
 	if collide(xs[0], applepos[0], ys[0], applepos[1], 20, 10, 20, 10):
 		score+=1;
-		xs.append(700);
-		ys.append(700);
-		applepos=(random.randint(0,590),random.randint(0,590))
+		for i in range(1):
+			xs.append(xs[len(xs)-1]);
+			ys.append(ys[len(ys)-1]);
+		applepos=get_new_applepos()
 
 	if xs[0] < 0 or xs[0] > 580 or ys[0] < 0 or ys[0] > 580: 
 		die(s, score)
