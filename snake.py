@@ -13,7 +13,7 @@ def die(screen, score):
 	screen.blit(t, (10, 270))
 	pygame.display.update()
 	pygame.time.wait(2000)
-	sys.exit(0)
+	#sys.exit(0)
     
 xs = [290, 290, 290, 290, 290]
 ys = [290, 270, 250, 230, 210]
@@ -50,6 +50,7 @@ while True:
 	while i >= 2:
 		if collide(xs[0], xs[i], ys[0], ys[i], 20, 20, 20, 20):
 			die(s, score)
+			break
 		i-= 1
 
 	if collide(xs[0], applepos[0], ys[0], applepos[1], 20, 10, 20, 10):
@@ -60,6 +61,7 @@ while True:
 
 	if xs[0] < 0 or xs[0] > 580 or ys[0] < 0 or ys[0] > 580: 
 		die(s, score)
+		break
 
 	i = len(xs)-1
 
@@ -81,7 +83,7 @@ while True:
 	s.blit(appleimage, applepos);t=f.render(str(score), True, (0, 0, 0));s.blit(t, (10, 10));
 	pygame.display.update()
 					
-					
+pygame.quit()					
 			
 
 
